@@ -39,6 +39,18 @@ const durationOptions = [
   { value: "30", label: "30 days" },
 ] as const
 
+const durationPricing: Record<(typeof durationOptions)[number]["value"], number> = {
+  "1": 10,
+  "2": 12,
+  "3": 15,
+  "4": 18,
+  "5": 22,
+  "6": 25,
+  "7": 30,
+  "14": 50,
+  "30": 100,
+}
+
 type RecentUploadMock = {
   id: string
   title: string
@@ -139,6 +151,7 @@ export function DashboardPage({ onLogout, onGoHome }: DashboardPageProps) {
   const [file, setFile] = useState<File | null>(null)
   const [paymentType, setPaymentType] = useState<(typeof paymentOptions)[number]["value"]>("card")
   const [campaignDays, setCampaignDays] = useState<(typeof durationOptions)[number]["value"]>("7")
+  const [unlimitedScans, setUnlimitedScans] = useState(false)
   const [qrUseStartDate, setQrUseStartDate] = useState(() => todayIsoDate())
 
   const titleId = useId()
@@ -149,6 +162,8 @@ export function DashboardPage({ onLogout, onGoHome }: DashboardPageProps) {
   const qrModalTitleId = useId()
 
   const modalBlockingOpen = uploadOpen || qrOpen
+  const baseCheckoutAmount = durationPricing[campaignDays]
+  const checkoutAmount = unlimitedScans ? baseCheckoutAmount * 2 : baseCheckoutAmount
 
   useEffect(() => {
     if (!modalBlockingOpen) return
@@ -164,6 +179,7 @@ export function DashboardPage({ onLogout, onGoHome }: DashboardPageProps) {
         setFile(null)
         setPaymentType("card")
         setCampaignDays("7")
+        setUnlimitedScans(false)
         setQrUseStartDate(todayIsoDate())
       }
     }
@@ -181,6 +197,7 @@ export function DashboardPage({ onLogout, onGoHome }: DashboardPageProps) {
     setFile(null)
     setPaymentType("card")
     setCampaignDays("7")
+    setUnlimitedScans(false)
     setQrUseStartDate(todayIsoDate())
   }
 
@@ -499,7 +516,7 @@ export function DashboardPage({ onLogout, onGoHome }: DashboardPageProps) {
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
-            className="relative w-full max-w-lg rounded-2xl border border-black/10 bg-[#fbfcfe] p-6 shadow-xl shadow-black/15"
+            className="relative w-full max-w-3xl rounded-2xl border border-black/10 bg-[#fbfcfe] p-6 shadow-xl shadow-black/15"
             onMouseDown={(e) => e.stopPropagation()}
           >
             <div className="mb-4 flex items-start justify-between gap-3">
@@ -521,7 +538,7 @@ export function DashboardPage({ onLogout, onGoHome }: DashboardPageProps) {
               </button>
             </div>
 
-            <form className="space-y-4" onSubmit={onSubmitUpload}>
+            <form className="space-y-4 grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={onSubmitUpload}>
               <div>
                 <label htmlFor={fileId} className="mb-1.5 block text-sm font-medium text-[#1c2e40]">
                   Document file <span className="text-red-600">*</span>
@@ -572,8 +589,26 @@ export function DashboardPage({ onLogout, onGoHome }: DashboardPageProps) {
                   The active QR will be valid from this date for the active period you choose below.
                 </p>
               </div>
-
               <div>
+                <label htmlFor={durationId} className="mb-1.5 block text-sm font-medium text-[#1c2e40]">
+                  Active period
+                </label>
+                <select
+                  id={durationId}
+                  value={campaignDays}
+                  onChange={(e) =>
+                    setCampaignDays(e.target.value as (typeof durationOptions)[number]["value"])
+                  }
+                  className="w-full cursor-pointer rounded-xl border border-black/10 bg-white px-3 py-2 text-sm text-[#1c2e40] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#50827a]/30"
+                >
+                  {durationOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="md:col-span-2">
                 <span id={paymentId} className="mb-1.5 block text-sm font-medium text-[#1c2e40]">
                   Payment type
                 </span>
@@ -597,26 +632,30 @@ export function DashboardPage({ onLogout, onGoHome }: DashboardPageProps) {
                 </div>
               </div>
 
-              <div>
-                <label htmlFor={durationId} className="mb-1.5 block text-sm font-medium text-[#1c2e40]">
-                  Active period
+              
+
+              <div className="rounded-xl md:col-span-2 border border-black/10 bg-white p-3">
+                <label className="flex cursor-pointer items-center gap-3 text-sm text-[#1c2e40]">
+                  <input
+                    type="checkbox"
+                    checked={unlimitedScans}
+                    onChange={(e) => setUnlimitedScans(e.target.checked)}
+                    className="h-4 w-4 accent-[#50827a]"
+                  />
+                  Unlimited scans
                 </label>
-                <select
-                  id={durationId}
-                  value={campaignDays}
-                  onChange={(e) =>
-                    setCampaignDays(e.target.value as (typeof durationOptions)[number]["value"])
-                  }
-                  className="w-full cursor-pointer rounded-xl border border-black/10 bg-white px-3 py-2 text-sm text-[#1c2e40] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#50827a]/30"
-                >
-                  {durationOptions.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
+                <p className="mt-1 text-xs text-[#1c2e40]/55">
+                  Checking this doubles the checkout amount for the selected duration.
+                </p>
               </div>
 
+              <div className="rounded-xl md:col-span-2 border border-[#50827a]/30 bg-[#50827a]/8 px-3 py-2">
+                <p className="text-sm font-medium text-[#1c2e40]">
+                  Price before checkout: ${checkoutAmount}
+                  {unlimitedScans ? ` (base $${baseCheckoutAmount} x 2 for unlimited scans)` : ""}
+                </p>
+              </div>
+<div />
               <div className="flex flex-wrap justify-end gap-2 pt-2">
                 <Button type="button" variant="outline" onClick={closeUploadModal}>
                   Cancel

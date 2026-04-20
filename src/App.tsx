@@ -10,13 +10,15 @@ function App() {
 
   const pricing = useMemo(
     () => [
-      { days: 1, price: 5 },
-      { days: 2, price: 7 },
-      { days: 3, price: 10 },
-      { days: 4, price: 15 },
-      { days: 5, price: 18 },
-      { days: 6, price: 22 },
-      { days: 7, price: 25 },
+      { days: 1, price: 10 },
+      { days: 2, price: 12 },
+      { days: 3, price: 15 },
+      { days: 4, price: 18 },
+      { days: 5, price: 22 },
+      { days: 6, price: 25 },
+      { days: 7, price: 30 },
+      // { days: 14, price: 50 },
+      // { days: 30, price: 100 },
     ],
     [],
   )

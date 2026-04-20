@@ -200,7 +200,7 @@ export function LandingPage({
                   A cleaner way to <span className="text-[#50827a]">share</span> what matters.
                 </h2>
                 <p className="mt-4 text-[#1c2e40]/70">
-                  We built Brocchure for people who share brochures at weddings, funerals and memorials, conferences and
+                  We built Brocchure for people who share brochures at weddings, funerals and memorials, restaurants, conferences and
                   trade shows, and community events. When you&apos;re coordinating a
                   crowd, links get lost, files are awkward to forward, and
                   printing stacks is expensive. A QR code is simple, universal,
@@ -239,23 +239,23 @@ export function LandingPage({
                 {[
                   {
                     title: "Weddings",
-                    desc: "Invites, schedules, menus, and RSVP info—perfect for tables and signage.",
+                    desc: "Invites, schedules, menus, and RSVP info, all perfect for tables and signage.",
                     img: "https://images.unsplash.com/photo-1742581659446-6260fc707e7d?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.1.0",
                   },
                   {
                     title: "Funerals & memorials",
-                    desc: "Programs, order of service, and remembrance notes—shared respectfully and simply.",
-                    img: "https://images.unsplash.com/photo-1695634281181-b2357af34c61?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.1.0",
+                    desc: "Programs, order of service, and remembrance notes, shared respectfully and simply.",
+                    img: "https://images.unsplash.com/photo-1544813545-4827b64fcacb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0",
                   },
                   {
                     title: "Events & promotions",
-                    desc: "Flyers, promo decks, vendor menus—scan to view, no app needed.",
+                    desc: "Flyers, promo decks, vendor menus. Scan to view, no app needed.",
                     img: "https://images.unsplash.com/photo-1712903276879-9de15f1b9e81?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.1.0",
                   },
                   {
-                    title: "Conferences",
-                    desc: "One QR for your agenda, speaker bios, or product brochure—easy handoff on the floor.",
-                    img: "https://images.unsplash.com/photo-1695634365196-55e0eb4e4dee?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.1.0",
+                    title: "Restaurants",
+                    desc: "One QR for your menu, or product brochure, easy handoff on the floor.",
+                    img: "https://plus.unsplash.com/premium_photo-1661883237884-263e8de8869b?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
                   },
                 ].map((card) => (
                   <div
@@ -337,6 +337,7 @@ export function LandingPage({
                       {[
                         "Upload 1 document",
                         "Instant QR code share",
+                        "50 people per QR code",
                         "Mobile-friendly viewer",
                       ].map((t) => (
                         <li key={t} className="flex items-start gap-2">
@@ -376,7 +377,7 @@ export function LandingPage({
                     </div>
 
                     <ul className="mt-4 space-y-1.5 text-xs text-[#1c2e40]/70">
-                      {["1 document", "QR share", "Mobile viewer"].map((t) => (
+                      {["1 document", "QR share", "Mobile viewer", "50 scans"].map((t) => (
                         <li key={t} className="flex items-start gap-2">
                           <Check className="mt-0.5 h-3.5 w-3.5 text-[#50827a]" />
                           <span>{t}</span>
@@ -388,14 +389,12 @@ export function LandingPage({
               })}
             </div>
 
-            <div className="mt-8 rounded-2xl border border-black/10 bg-white p-6 text-sm text-[#1c2e40]/75 shadow-sm">
-              <div className="font-semibold text-[#1c2e40]">Retention policy</div>
-              <p className="mt-2">
-                After your selected use date, your document remains available
-                during the active period.{" "}
-                <span className="text-[#1c2e40]">
-                  30 days after inactivity after the use date, the document is
-                  removed automatically.
+            <div className="mt-8 rounded-2xl border border-black/10 font-bold bg-white p-6 text-sm text-[#1c2e40]/75 shadow-sm">
+              <div className="font-semibold text-[#1c2e40]">Package policy</div>
+              <p className="mt-2 text-[#50827a]">
+                If you want to share your document with more than 50 people, you can purchase a package.{" "}
+                <span className="text-[#50827a]">
+                  The package will be valid for the duration you purchase, but at an additional cost.
                 </span>
               </p>
             </div>

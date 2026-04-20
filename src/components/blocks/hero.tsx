@@ -12,7 +12,7 @@ const IMAGES = [
   // Event brochures / flyers
   "https://images.unsplash.com/photo-1712903276879-9de15f1b9e81?auto=format&fit=crop&w=2400&q=80&ixlib=rb-4.1.0",
   // Brochure mockups (good stand-in for programs)
-  "https://images.unsplash.com/photo-1695634281181-b2357af34c61?auto=format&fit=crop&w=2400&q=80&ixlib=rb-4.1.0",
+  "https://plus.unsplash.com/premium_photo-1661883237884-263e8de8869b?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
   "https://images.unsplash.com/photo-1544813545-4827b64fcacb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0",
   "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0",
 ]
