@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+:root {
+  --brocchure-ink: #1c2e40;
+  --brocchure-moss: #50827a;
+  --brocchure-sand: #e3c18a;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(
+      900px 520px at 10% 50%,
+      color-mix(in oklab, var(--brocchure-sand) 58%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      800px 520px at 90% 30%,
+      color-mix(in oklab, var(--brocchure-moss) 24%, transparent),
+      transparent 55%
+    ),
+    #ffffff;
+  color: var(--brocchure-ink);
+}
